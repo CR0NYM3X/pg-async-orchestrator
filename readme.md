@@ -1,5 +1,6 @@
 # 🌟 pg-async-orchestrator (FOAR)
-**Orquestación de tareas en segundo plano, nativa y amigable para PostgreSQL.**
+**Orquestación de tareas en segundo plano, nativa y amigable para PostgreSQL.** <br>
+**(FOAR) Framework de Orquestación Asíncrona Resiliente.**
 
 ## 🤔 ¿Qué es y para qué sirve?
 
