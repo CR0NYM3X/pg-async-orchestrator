@@ -120,10 +120,12 @@ No te asustes, el sistema usa tablitas muy sencillas para llevar su propio contr
 * `bg.def_tasks`: Aquí se guarda el orden de los pasos de tu trabajo.
 * `bg.run_jobs`: El historial. Aquí se anota a qué hora empezó y terminó el trabajo general.
 * `bg.run_tasks`: ¡La cola en vivo! Aquí se guarda el estatus de cada pasito y los mensajes de error.
+* `bg.run_tasks_errors_history`: **[NUEVO]** La caja negra forense inmutable. Archiva el estado de la tarea, el número de intento fallido y el texto exacto de la consulta SQL de cualquier transacción antes de que el motor limpie la cola para un ciclo de reintentos.
 
 **👁️ Vistas (Para que audites fácilmente):**
 
 * `bg.vw_status_progreso_corporativo`: Un tablero súper amigable que te muestra el avance %, qué está corriendo y qué falló.
+* `bg.vw_trazabilidad_forense`: **[NUEVO]** Vista de texto puro diseñada para DBAs, ORMs y herramientas de automatización. Mide la duración neta de la tarea, la latencia en la cola de espera y los resúmenes de ejecución con precisión de milisegundos.
 
 **⚙️ Funciones (Tus controles principales):**
 
@@ -131,6 +133,13 @@ No te asustes, el sistema usa tablitas muy sencillas para llevar su propio contr
 * `bg.start_job()`: Enciende un trabajo que ya habías creado.
 * `bg.launch_job_one_shot()`: ¡Todo en uno! Crea y arranca el trabajo en el mismo comando.
 * `bg.replicate_query()`: Te ayuda a clonar una consulta muchas veces para hacer pruebas de estrés.
+* `bg.abort_job()`: **[NUEVO]** El freno de emergencia global (Kill Switch). Intercepta un trabajo activo, envía una señal de cancelación (SIGINT) para detener al padre orquestador y a todos los trabajadores vivos a nivel del Sistema Operativo, y destruye la cola restante al instante.
+
+
+
+
+
 
 
  
+
