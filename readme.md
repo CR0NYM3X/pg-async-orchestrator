@@ -18,7 +18,7 @@ Think of it as a conductor for an orchestra or a traffic cop for your database. 
 It performs a coordination job very similar to massive external message queues or workflow tools (like Airflow, Celery, or RabbitMQ), but **focused exclusively on database tasks**. This saves you the nightmare of installing, configuring, and maintaining extra servers if all your business logic already lives inside PostgreSQL.
 
 ## 🏆 Special Thanks
-Before getting started, full credit and a huge thank you to **Robert Haas**, the brilliant creator of the `pg_background` extension. Without his pioneering work allowing native asynchronous processes in PostgreSQL, this orchestrator quite simply would not exist. Thank you, Robert!
+Before getting started, full credit and a huge thank you to **Robert Haas** and **Vibhor Kumar**, the brilliant creator of the `pg_background` extension. Without his pioneering work allowing native asynchronous processes in PostgreSQL, this orchestrator quite simply would not exist. Thank you, Robert!
 
 ## 📋 Prerequisites
 To run this framework in your database, you need:
