@@ -76,7 +76,6 @@ CREATE TABLE IF NOT EXISTS bg.def_jobs (
     timeout_seconds INT NOT NULL DEFAULT 300 CHECK (timeout_seconds > 0),
     max_retries INT NOT NULL DEFAULT 0 CHECK (max_retries >= 0),
     allocation_policy VARCHAR(20) DEFAULT 'ADAPTIVE' CHECK (allocation_policy IN ('ADAPTIVE', 'STRICT')),
-    execution_notes TEXT,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CLOCK_TIMESTAMP()
 );
@@ -105,6 +104,7 @@ CREATE TABLE IF NOT EXISTS bg.run_jobs (
     job_id INT NOT NULL REFERENCES bg.def_jobs(job_id),
     status bg.run_status DEFAULT 'INITIALIZING',
     monitor_pid INT,
+    execution_notes TEXT,
     started_at TIMESTAMP DEFAULT CLOCK_TIMESTAMP(),
     ended_at TIMESTAMP
 );
@@ -424,7 +424,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SET search_path = bg, public, pg_temp;
 
-REVOKE EXECUTE ON FUNCTION bg.create_job_definition(VARCHAR, bg.execution_mode, TEXT[], INT, INT, INT) FROM PUBLIC;
+REVOKE EXECUTE ON FUNCTION bg.create_job_definition(VARCHAR, bg.execution_mode, TEXT[], INT, INT, INT, VARCHAR) FROM PUBLIC;
 
 -- ============================================================================
 -- FUNCTION: bg.start_job (The Internal Ignition Switch)
@@ -485,7 +485,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SET search_path = bg, public, pg_temp;
 
-REVOKE EXECUTE ON FUNCTION bg.launch_job_one_shot(VARCHAR, bg.execution_mode, TEXT[], INT, INT, INT) FROM PUBLIC;
+REVOKE EXECUTE ON FUNCTION bg.launch_job_one_shot(VARCHAR, bg.execution_mode, TEXT[], INT, INT, INT, VARCHAR) FROM PUBLIC;
 
 -- ============================================================================
 -- FUNCTION: bg.replicate_query (The Cloner / Multiplier)
